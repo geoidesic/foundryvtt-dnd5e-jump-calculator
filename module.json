@@ -1,0 +1,46 @@
+{
+  "id": "foundryvtt-dnd5e-jump-calculator",
+  "title": "DnD5e Jump Calculator",
+  "description": "Provides a bare-bones Foundry module template repo to get set up with using the TyphonJS Runtime Library and Svelte with ES Modules.",
+  "version": "0.0.0",
+  "authors": [
+    {
+      "name": "Noel da Costa  ",
+      "url": "https://www.arc2.co.uk",
+      "discord": "geoidesic"
+    }
+  ],
+  "compatibility": {
+    "minimum": "10",
+    "verified": "11"
+  },
+  "esmodules": [
+    "index.js"
+  ],
+  "styles": [
+    "style.css"
+  ],
+  "flags": {
+    "hotReload": {
+      "extensions": ["json"],
+      "paths": ["lang"]
+    }
+  },
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
+  "socket": false,
+  "url": "https://github.com/geoidesic/foundryvtt-dnd5e-jump-calculator",
+  "readme": "https://github.com/geoidesic/foundryvtt-dnd5e-jump-calculator/blob/master/README.md",
+  "bugs": "https://github.com/geoidesic/foundryvtt-dnd5e-jump-calculator/issues",
+  "changelog": "https://github.com/geoidesic/foundryvtt-dnd5e-jump-calculator/releases/latest/",
+  "manifest": "https://github.com/geoidesic/foundryvtt-dnd5e-jump-calculator/releases/latest/download/module.json",
+  "download": "https://github.com/geoidesic/foundryvtt-dnd5e-jump-calculator/releases/download/0.0.0/module.zip",
+  "protected": false,
+  "coreTranslation": false,
+  "library": false
+}
