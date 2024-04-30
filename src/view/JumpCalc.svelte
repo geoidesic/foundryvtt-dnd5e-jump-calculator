@@ -11,7 +11,7 @@
 <!-- ApplicationShell exports `elementRoot` which is the outer application shell element -->
 <ApplicationShell bind:elementRoot>
    <main>
-      <h1>Basic application</h1>
+      <h1>Jump calc application</h1>
    </main>
 </ApplicationShell>
 

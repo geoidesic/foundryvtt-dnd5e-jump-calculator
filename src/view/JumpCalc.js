@@ -1,8 +1,8 @@
 import { SvelteApplication }  from '#runtime/svelte/application';
 
-import BasicAppShell          from './BasicAppShell.svelte';
+import JumpCalc          from './JumpCalc.svelte';
 
-export default class BasicApplication extends SvelteApplication
+export default class JumpCalcApplication extends SvelteApplication
 {
    /**
     * Default Application options
@@ -13,11 +13,11 @@ export default class BasicApplication extends SvelteApplication
    static get defaultOptions()
    {
       return foundry.utils.mergeObject(super.defaultOptions, {
-         title: 'TemplateESM.title',  // Automatically localized from `lang/en.json`.
+         title: '5eJumpCalc.title',  // Automatically localized from `lang/en.json`.
          width: 300,
 
          svelte: {
-            class: BasicAppShell,
+            class: JumpCalc,
             target: document.body
          }
       });

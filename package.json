@@ -1,11 +1,10 @@
 {
-  "description": "Provides a bare-bones Foundry module template repo to get set up with using the TyphonJS Runtime Library and Svelte with ES Modules.",
+  "description": "Provides a jump distance calculator for 5e.",
   "license": "MIT",
   "private": true,
   "type": "module",
-  "author": "Michael Leahy <support@typhonjs.io> (https://github.com/typhonrt)",
+  "author": "geoidesic (discord)",
   "contributors": [
-    "Michael Leahy <support@typhonjs.io> (https://github.com/typhonrt)"
   ],
   "imports": {
     "#runtime/*": "@typhonjs-fvtt/runtime/*",

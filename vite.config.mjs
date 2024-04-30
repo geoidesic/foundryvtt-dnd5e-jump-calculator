@@ -11,11 +11,11 @@ import {
 
 // For convenience, you just need to modify the package ID below as it is used to fill in default proxy settings for
 // the dev server.
-const s_PACKAGE_ID = 'modules/template-svelte-esm';
+const s_PACKAGE_ID = 'modules/foundryvtt-dnd5e-jump-calculator';
 
 // A short additional string to add to Svelte CSS hash values to make yours unique. This reduces the amount of
 // duplicated framework CSS overlap between many TRL packages enabled on Foundry VTT at the same time. 'tse' is chosen
-// by shortening 'template-svelte-esm'.
+// by shortening 'foundryvtt-dnd5e-jump-calculator'.
 const s_SVELTE_HASH_ID = 'tse';
 
 const s_COMPRESS = false;  // Set to true to compress the module bundle.

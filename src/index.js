@@ -1,3 +1,3 @@
-import BasicApplication from './view/BasicApplication.js';
+import JumpCalc from './view/JumpCalc.js';
 
-Hooks.once('ready', () => new BasicApplication().render(true, { focus: true }));
+Hooks.once('ready', () => new JumpCalc().render(true, { focus: true }));
