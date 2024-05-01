@@ -2,7 +2,7 @@
   "id": "foundryvtt-dnd5e-jump-calculator",
   "title": "DnD5e Jump Calculator",
   "description": "Provides a bare-bones Foundry module template repo to get set up with using the TyphonJS Runtime Library and Svelte with ES Modules.",
-  "version": "0.0.0",
+  "version": "0.0.4",
   "authors": [
     {
       "name": "Noel da Costa  ",
@@ -30,8 +30,7 @@
     {
       "lang": "en",
       "name": "English",
-      "path": "lang/en.json",
-      "system": "dnd5e"
+      "path": "lang/en.json"
     }
   ],
   "socket": false,
