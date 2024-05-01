@@ -30,7 +30,8 @@
     {
       "lang": "en",
       "name": "English",
-      "path": "lang/en.json"
+      "path": "lang/en.json",
+      "system": "dnd5e"
     }
   ],
   "socket": false,
