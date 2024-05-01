@@ -17,32 +17,27 @@ function parseHeightString(heightString) {
 
 const longJumpTextTemplate = `
 <div class="geoidesic-5e-jump-calc">
-    <h2>Long Jump</h2>
+    <h2>{{5eJumpCalc.longJumpTitle}}</h2>
     <p>PHB p182</p>
-    <p><strong>Running jump</strong> (10' move first): <span class="lozenge">{{running_jump}}</span></p>
+    <p><strong>Running jump</strong> ({{5eJumpCalc.10FtFirst}}): <span class="lozenge">{{running_jump}}</span></p>
     <p><strong>Standing jump</strong>: <span class="lozenge">{{standing_jump}}</span></p>
-    {{post}}
+    {{5eJumpCalc.longJumpPost}}
 </div>
 `;
 const highJumpPost = `
-<p>Either way, each foot you clear on the jump costs a foot of movement. In some circumstances, your DM might allow you to make a Strength (Athletics) check to jump higher than you normally can.
-You can extend your arms half your height above yourself during the jump. Thus, you can reach above you a distance equal to the height of the jump plus 1½ times your height.
-</p>
+<p>{{5eJumpCalc.highJumpPost}}</p>
 `;
 const longJumpPost = `
-<p>Either way, each foot you clear on the jump costs a foot of movement.
-This rule assumes that the height of your jump doesn't matter, such as a jump across a stream or chasm. At your DM's option, you must succeed on a DC 10 Strength (Athletics) check to clear a low obstacle (no taller than a quarter of the jump's distance), such as a hedge or low wall. Otherwise, you hit it.
-When you land in difficult terrain, you must succeed on a DC 10 Dexterity (Acrobatics) check to land on your feet. Otherwise, you land prone.
-</p>
+<p>{{5eJumpCalc.longJumpPost}}</p>
 `;
 const highJumpTextTemplate = `
 <div class="geoidesic-5e-jump-calc">
     <h2>High Jump</h2>
     <p>PHB p182</p>
-    <p><strong>Running jump</strong> (10' move first): <span class="lozenge">{{running_jump}}</span></p>
+    <p><strong>Running jump</strong> ({{5eJumpCalc.10FtFirst}}): <span class="lozenge">{{running_jump}}</span></p>
     <p><strong>Standing jump</strong>: <span class="lozenge">{{standing_jump}}</span></p>
     <p><strong>Reach</strong>: <span class="lozenge">+{{reach}}</span></p>
-    {{post}}
+    {{5eJumpCalc.highJumpPost}}
 </div>
 `;
 
@@ -91,17 +86,8 @@ function calculateReach(height) {
     return convertDecimalToFeet(distance);
 }
 
-const sheetContent1 = `
-<div class="pills-group">
-    <h3 class="icon">
-        <i class="fas fa-person-running"></i>
-        <span class="roboto-upper">Geoidesic plugins</span>
-    </h3>
-    <button class="geoidesic-5e-button" id="renderHighJumpButton">High jump!</button>
-    <button class="geoidesic-5e-button" id="renderLongJumpButton">Long jump!</button>
-</div>
-`;
-const sheetContent2 = `
+
+const sheetContent = `
     <div class="pills-group">
         <h3 class="icon">
             <i class="fas fa-person-running"></i>
@@ -122,7 +108,6 @@ const sheetContent2 = `
 Hooks.on("renderActorSheet5eCharacter", (app, html, data) => {
     // console.log(html);
     const lastPillGroup = html.find('.pills-group:last-of-type');
-    const sheetContent = sheetContent2;
     lastPillGroup.after(sheetContent);
 
     const strength = app.document.system.abilities.str.value || 10;
@@ -137,8 +122,10 @@ Hooks.on("renderActorSheet5eCharacter", (app, html, data) => {
             content: highJumpTextTemplate
             .replace("{{running_jump}}", calculateHighJump(strMod, 'running'))
             .replace("{{standing_jump}}", calculateHighJump(strMod, 'standing'))
+            .replace("{{5eJumpCalc.highJumpTitle}}", game.i18n.localize('5eJumpCalc.highJumpTitle'))
+            .replace("{{5eJumpCalc.highJumpPost}}", game.i18n.localize('5eJumpCalc.highJumpPost'))
+            .replace("{{5eJumpCalc.10FtFirst}}", game.i18n.localize('5eJumpCalc.10FtFirst'))
             .replace("{{reach}}", calculateReach(height))
-            .replace("{{post}}", highJumpPost)
             ,
             speaker: ChatMessage.getSpeaker({ actor: app.actor }),
         });
@@ -150,7 +137,9 @@ Hooks.on("renderActorSheet5eCharacter", (app, html, data) => {
             content: longJumpTextTemplate
             .replace("{{running_jump}}", calculateLongJump(strength, 'running'))
             .replace("{{standing_jump}}", calculateLongJump(strength, 'standing'))
-            .replace("{{post}}", longJumpPost)
+            .replace("{{5eJumpCalc.longJumpTitle}}", game.i18n.localize('5eJumpCalc.longJumpTitle'))
+            .replace("{{5eJumpCalc.longJumpPost}}", game.i18n.localize('5eJumpCalc.longJumpPost'))
+            .replace("{{5eJumpCalc.10FtFirst}}", game.i18n.localize('5eJumpCalc.10FtFirst'))
             ,
             speaker: ChatMessage.getSpeaker({ actor: app.actor }),
         });
