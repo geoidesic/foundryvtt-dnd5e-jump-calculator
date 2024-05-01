@@ -1,17 +1,31 @@
 {
-  "id": "foundryvtt-dnd5e-jump-calculator",
   "title": "DnD5e Jump Calculator",
   "description": "Integrates a jump calculator for the dnd5e system's default character sheet.",
-  "version": "0.0.4",
+  "version": "1.0.0-alpha-1",
+  "styles": ["styles.css"],
+  "esmodules": ["index.js"],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json",
+      "flags": {}
+    }
+  ],
+  "packs": [],
+  "url": "https://frialigan.se/",
+  "manifest": "https://github.com/FLPub/symbaroum5ecore/releases/latest/download/module.json",
+  "download": "https://github.com/FLPub/symbaroum5ecore/releases/latest/download/module.zip",
   "authors": [
     {
       "name": "Noel da Costa  ",
       "url": "https://www.arc2.co.uk",
-      "discord": "geoidesic"
+      "discord": "geoidesic",
+      "flags": {}
     }
   ],
   "compatibility": {
-    "minimum": "10",
+    "minimum": "11",
     "verified": "11.315",
     "maximum": "12"
   },
@@ -28,32 +42,5 @@
       }
     ]
   },
-  "esmodules": [
-    "index.js"
-  ],
-  "styles": [
-    "style.css"
-  ],
-  "flags": {
-    "hotReload": {
-      "extensions": ["json"],
-      "paths": ["lang"]
-    }
-  },
-  "languages": [
-    {
-      "lang": "en",
-      "name": "English",
-      "path": "lang/en.json"
-    }
-  ],
-  "socket": false,
-  "url": "https://github.com/geoidesic/foundryvtt-dnd5e-jump-calculator",
-  "readme": "https://github.com/geoidesic/foundryvtt-dnd5e-jump-calculator/blob/master/README.md",
-  "bugs": "https://github.com/geoidesic/foundryvtt-dnd5e-jump-calculator/issues",
-  "changelog": "https://github.com/geoidesic/foundryvtt-dnd5e-jump-calculator/releases/latest/",
-  "manifest": "https://github.com/geoidesic/foundryvtt-dnd5e-jump-calculator/releases/latest/download/module.json",
-  "download": "https://github.com/geoidesic/foundryvtt-dnd5e-jump-calculator/releases/latest/download/module.zip"
+  "id": "foundryvtt-dnd5e-jump-calculator"
 }
-
-
