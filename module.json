@@ -1,7 +1,7 @@
 {
   "title": "DnD5e Jump Calculator",
   "description": "Integrates a jump calculator for the dnd5e system's default character sheet.",
-  "version": "1.0.0-alpha-8",
+  "version": "1.0.0-alpha-9",
   "styles": ["style.css"],
   "esmodules": ["index.js"],
   "languages": [
