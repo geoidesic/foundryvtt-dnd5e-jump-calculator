@@ -2,7 +2,7 @@
   "description": "Provides a jump distance calculator for 5e.",
   "license": "MIT",
   "private": false,
-  "version": "0.0.2-alpha",
+  "version": "0.0.3-alpha",
   "type": "module",
   "authors": [
     {
