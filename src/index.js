@@ -1,6 +1,4 @@
-import JumpCalc from './view/JumpCalc.js';
 import '../styles/init.scss'; // Import any styles as this includes them in the build.
-
 
 function parseHeightString(heightString) {
     // Regular expression to match patterns for feet and inches
@@ -11,7 +9,6 @@ function parseHeightString(heightString) {
     const inchesMatch = heightString.match(inchesRegex);
     const feetMatch = heightString.match(feetRegex);
 
-
     const feet = feetMatch[0];
     const inches = inchesMatch[0].replace(/["\s]/g, '');
     // Return the height as a string in the format "<feet>.<inches>"
@@ -20,11 +17,11 @@ function parseHeightString(heightString) {
 
 const longJumpTextTemplate = `
 <div class="geoidesic-5e-jump-calc">
-<h2>Long Jump</h2>
-<p>PHB p182</p>
-<p><strong>Running jump</strong> (10' move first): <span class="lozenge">{{running_jump}}</span></p>
-<p><strong>Standing jump</strong>: <span class="lozenge">{{standing_jump}} ft</span></p>
-{{post}}
+    <h2>Long Jump</h2>
+    <p>PHB p182</p>
+    <p><strong>Running jump</strong> (10' move first): <span class="lozenge">{{running_jump}}</span></p>
+    <p><strong>Standing jump</strong>: <span class="lozenge">{{standing_jump}}</span></p>
+    {{post}}
 </div>
 `;
 const highJumpPost = `
@@ -40,12 +37,12 @@ When you land in difficult terrain, you must succeed on a DC 10 Dexterity (Acrob
 `;
 const highJumpTextTemplate = `
 <div class="geoidesic-5e-jump-calc">
-<h2>High Jump</h2>
-<p>PHB p182</p>
-<p><strong>Running jump</strong> (10' move first): <span class="lozenge">{{running_jump}}</span></p>
-<p><strong>Standing jump</strong>: <span class="lozenge">{{standing_jump}} ft</span></p>
-<p><strong>Reach</strong>: <span class="lozenge">+{{reach}} ft</span></p>
-{{post}}
+    <h2>High Jump</h2>
+    <p>PHB p182</p>
+    <p><strong>Running jump</strong> (10' move first): <span class="lozenge">{{running_jump}}</span></p>
+    <p><strong>Standing jump</strong>: <span class="lozenge">{{standing_jump}}</span></p>
+    <p><strong>Reach</strong>: <span class="lozenge">+{{reach}}</span></p>
+    {{post}}
 </div>
 `;
 
@@ -53,13 +50,8 @@ function convertDecimalToFeet(decimalFeet) {
     // Split the decimal feet into integer and fractional parts
     const integerFeet = Math.floor(decimalFeet);
     const fractionalFeet = decimalFeet - integerFeet;
-
-    console.log(integerFeet);
-    console.log(fractionalFeet);
-
     // Convert the fractional part to inches (1 foot = 12 inches)
     const inches = Math.round(fractionalFeet * 12);
-
     // Return the result as a string in the format "feet' inches""
     return `${integerFeet}' ${inches}"`;
 }
@@ -102,7 +94,7 @@ function calculateReach(height) {
 const sheetContent1 = `
 <div class="pills-group">
     <h3 class="icon">
-        <i class="fas fa-flag"></i>
+        <i class="fas fa-person-running"></i>
         <span class="roboto-upper">Geoidesic plugins</span>
     </h3>
     <button class="geoidesic-5e-button" id="renderHighJumpButton">High jump!</button>
@@ -112,8 +104,8 @@ const sheetContent1 = `
 const sheetContent2 = `
     <div class="pills-group">
         <h3 class="icon">
-            <i class="fas fa-flag"></i>
-            <span class="roboto-upper">Geoidesic plugins</span>
+            <i class="fas fa-person-running"></i>
+            <span class="roboto-upper">Jump Calculator</span>
         </h3>
         <ul class="pills">
             <li class="pill geoidesic-5e-button">
@@ -133,7 +125,6 @@ Hooks.on("renderActorSheet5eCharacter", (app, html, data) => {
     const sheetContent = sheetContent2;
     lastPillGroup.after(sheetContent);
 
-    console.log(app.document.system.abilities.str);
     const strength = app.document.system.abilities.str.value || 10;
     const strMod = app.document.system.abilities.str.mod || 0;
     const height = parseHeightString(app.document.system.details.height) || '6.0';
@@ -164,5 +155,4 @@ Hooks.on("renderActorSheet5eCharacter", (app, html, data) => {
             speaker: ChatMessage.getSpeaker({ actor: app.actor }),
         });
     });
-
 });
