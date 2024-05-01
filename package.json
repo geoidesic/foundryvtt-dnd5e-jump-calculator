@@ -2,10 +2,13 @@
   "description": "Provides a jump distance calculator for 5e.",
   "license": "MIT",
   "private": false,
-  "version": "0.0.1",
+  "version": "0.0.2-alpha",
   "type": "module",
-  "author": "geoidesic (on discord)",
-  "contributors": [
+  "authors": [
+    {
+      "name": "Noel da Costa",
+      "discord": "@geoidesic"
+    }
   ],
   "imports": {
     "#runtime/*": "@typhonjs-fvtt/runtime/*",
