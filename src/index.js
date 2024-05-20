@@ -2,7 +2,7 @@ import '../styles/init.scss'; // Import any styles as this includes them in the 
 
 function parseHeightString(heightString) {
     // Regular expression to match patterns for feet and inches
-    const inchesRegex = /('|\s)(\d")/gm;
+    const inchesRegex = /('|\s)(\d{1,2}")/gm;
     const feetRegex = /^(\d|\d\s|\d")/gm;
 
     // Execute the regular expressions on the input height string
@@ -76,8 +76,8 @@ function calculateReach(height) {
     const inches = Number(split[1]);
     const halfInches = inches / 2;
     const halfFeet = feet / 2;
-    const reachFeet = feet + halfFeet;
-    const reachInches = inches + halfInches;
+    let reachFeet = feet + halfFeet;
+    let reachInches = inches + halfInches;
     if(reachInches > 12) {
         reachFeet += 1;
         reachInches -= 12;
