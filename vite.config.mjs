@@ -1,10 +1,12 @@
 /* eslint-env node */
-import { svelte }    from '@sveltejs/vite-plugin-svelte';
-import resolve       from '@rollup/plugin-node-resolve'; // This resolves NPM modules from node_modules.
-import preprocess    from 'svelte-preprocess';
+import { svelte } from '@sveltejs/vite-plugin-svelte';
+import resolve from '@rollup/plugin-node-resolve'; // This resolves NPM modules from node_modules.
+import preprocess from 'svelte-preprocess';
+import { terser } from 'rollup-plugin-terser';
 import {
    postcssConfig,
-   terserConfig }    from '@typhonjs-fvtt/runtime/rollup';
+   terserConfig
+} from '@typhonjs-fvtt/runtime/rollup';
 
 // ATTENTION!
 // Please modify the below variables: s_PACKAGE_ID and s_SVELTE_HASH_ID appropriately.
@@ -16,7 +18,7 @@ const s_PACKAGE_ID = 'modules/foundryvtt-dnd5e-jump-calculator';
 // A short additional string to add to Svelte CSS hash values to make yours unique. This reduces the amount of
 // duplicated framework CSS overlap between many TRL packages enabled on Foundry VTT at the same time. 'tse' is chosen
 // by shortening 'foundryvtt-dnd5e-jump-calculator'.
-const s_SVELTE_HASH_ID = 'tse';
+const s_SVELTE_HASH_ID = 'djc';
 
 const s_COMPRESS = false;  // Set to true to compress the module bundle.
 const s_SOURCEMAPS = true; // Generate sourcemaps for the bundle (recommended).
@@ -27,8 +29,7 @@ const s_RESOLVE_CONFIG = {
    dedupe: ['svelte']
 };
 
-export default () =>
-{
+export default () => {
    /** @type {import('vite').UserConfig} */
    return {
       root: 'src/',                 // Source location / esbuild root.
@@ -68,7 +69,10 @@ export default () =>
 
             // Enable socket.io from main Foundry server.
             '/socket.io': { target: 'ws://localhost:30000', ws: true }
-         }
+         },
+
+         // Rewrite requests to the root URL to the base URL for your module
+         rewrite: (path) => path.replace(/^\/$/, `/${s_PACKAGE_ID}/`)
       },
 
       build: {
@@ -83,14 +87,21 @@ export default () =>
             entry: './index.js',
             formats: ['es'],
             fileName: 'index'
-         }
+         },
+         rollupOptions: {
+            plugins: [terser()],
+         },
       },
 
       // Necessary when using the dev server for top-level await usage inside TRL.
       optimizeDeps: {
          esbuildOptions: {
-            target: 'es2022'
-         }
+            target: 'es2022',
+            loader: {
+               '.node': 'file'
+            }
+         },
+         include: ['@sveltejs/vite-plugin-svelte'],
       },
 
       plugins: [
