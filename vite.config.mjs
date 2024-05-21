@@ -7,6 +7,7 @@ import {
    postcssConfig,
    terserConfig
 } from '@typhonjs-fvtt/runtime/rollup';
+import * as path from "path";
 
 // ATTENTION!
 // Please modify the below variables: s_PACKAGE_ID and s_SVELTE_HASH_ID appropriately.
@@ -37,7 +38,17 @@ export default () => {
       publicDir: false,             // No public resources to copy.
       cacheDir: '../.vite-cache',   // Relative from root directory.
 
-      resolve: { conditions: ['import', 'browser'] },
+      test: {
+         mockReset: true,
+         globals: true,
+      },
+
+      resolve: {
+         conditions: ['import', 'browser'],
+         alias: {
+            "~": path.resolve(__dirname, "src"),
+         },
+      },
 
       esbuild: {
          target: ['es2022']
