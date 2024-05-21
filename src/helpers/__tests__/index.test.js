@@ -247,3 +247,12 @@ test('calculateReach 5 ft 6 in', () => {
 test('calculateReach 12 ft 11 in', () => {
   assert.equal(calculateReach('12.11'), `19' 4"`);
 });
+test('calculateReach 6 ft 3 in', () => {
+  assert.equal(calculateReach('6.3'), `9' 4"`);
+});
+test('calculateReach 6 ft 0 in', () => {
+  assert.equal(calculateReach('6.0'), `9' 0"`);
+});
+test('calculateReach 6 ft 1 in', () => {
+  assert.equal(calculateReach('6.1'), `9' 1"`);
+});
