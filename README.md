@@ -1,3 +1,6 @@
+# Sponsorship & Donations
+I am now accepting sponsorships and donations via GitHub. If you would like to support my work you can do so here: https://github.com/sponsors/geoidesic
+
 # FoundryVTT dnd5e Jump Calculator
 This is a simple module which integrates with the default 5e character sheet to add Jump Calculator buttons to the Details tab of the sheet. 
 
@@ -6,3 +9,4 @@ This is a simple module which integrates with the default 5e character sheet to 
 - Once the module is enabled you will an additional section on the Details tab, titled "Jump Calculator" which includes the buttons.
 - Click one of the buttons to generate your jump info to the Chat bar.
 - Only works with dnd5e system version 3+ and Foundry v11+
+
