@@ -2,8 +2,11 @@ import '../styles/init.scss'; // Import any styles as this includes them in the 
 import {parseHeightString, calculateLongJump, calculateHighJump, calculateReach } from '~/helpers'
 import {longJumpTextTemplate, highJumpTextTemplate, sheetContent } from '~/templates'
 
+
+
 Hooks.on("renderActorSheet5eCharacter", (app, html, data) => {
-    // console.log(html);
+
+
     const lastPillGroup = html.find('.pills-group:last-of-type');
     lastPillGroup.after(sheetContent);
 
@@ -14,6 +17,7 @@ Hooks.on("renderActorSheet5eCharacter", (app, html, data) => {
     // Add event listener to the button
     const renderHighJumpButton = html.find('#renderHighJumpButton');
     renderHighJumpButton.on('click', () => {
+        console.log('app', app)
         // Render chat message
         if(!height) {
             ChatMessage.create({
@@ -24,8 +28,8 @@ Hooks.on("renderActorSheet5eCharacter", (app, html, data) => {
         } else {
             ChatMessage.create({
                 content: highJumpTextTemplate
-                .replace("{{running_jump}}", calculateHighJump(strMod, 'running'))
-                .replace("{{standing_jump}}", calculateHighJump(strMod, 'standing'))
+                .replace("{{running_jump}}", calculateHighJump(strMod, 'running', app.actor))
+                .replace("{{standing_jump}}", calculateHighJump(strMod, 'standing', app.actor))
                 .replace("{{5eJumpCalc.highJumpTitle}}", game.i18n.localize('5eJumpCalc.highJumpTitle'))
                 .replace("{{5eJumpCalc.highJumpPost}}", game.i18n.localize('5eJumpCalc.highJumpPost'))
                 .replace("{{5eJumpCalc.10FtFirst}}", game.i18n.localize('5eJumpCalc.10FtFirst'))
@@ -40,8 +44,8 @@ Hooks.on("renderActorSheet5eCharacter", (app, html, data) => {
         // Render chat message
         ChatMessage.create({
             content: longJumpTextTemplate
-            .replace("{{running_jump}}", calculateLongJump(strength, 'running'))
-            .replace("{{standing_jump}}", calculateLongJump(strength, 'standing'))
+            .replace("{{running_jump}}", calculateLongJump(strength, 'running', app.actor))
+            .replace("{{standing_jump}}", calculateLongJump(strength, 'standing', app.actor))
             .replace("{{5eJumpCalc.longJumpTitle}}", game.i18n.localize('5eJumpCalc.longJumpTitle'))
             .replace("{{5eJumpCalc.longJumpPost}}", game.i18n.localize('5eJumpCalc.longJumpPost'))
             .replace("{{5eJumpCalc.10FtFirst}}", game.i18n.localize('5eJumpCalc.10FtFirst'))
