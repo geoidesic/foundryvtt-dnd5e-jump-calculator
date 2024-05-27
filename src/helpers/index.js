@@ -5,6 +5,8 @@
  * @returns 
  */
 export function parseHeightString(heightString) {
+    if(!heightString) return null;
+    console.log('heightString', heightString)
     // Regular expression to match patterns for feet and inches
     const inchesRegex = /('|\s)(\d{1,3}")/gm;
     const feetRegex = /^(\d{1,3}|\d\s|\d")/gm;
