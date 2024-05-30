@@ -55,8 +55,8 @@ Hooks.once("ready", (app, html, data) => {
 
   
 Hooks.on("renderActorSheet5eCharacter", (app, html, data) => {
-    
-    if(game.modules.has("tidy5e-sheet")) {
+
+    if(game.modules.has("tidy5e-sheet") && app.constructor.name === "Tidy5eCharacterSheet") {
         const insertLocation = html.find('.main-panel .small-gap');
         const templateHtml = $(sheetContent);
         templateHtml.addClass('tidy5e');
