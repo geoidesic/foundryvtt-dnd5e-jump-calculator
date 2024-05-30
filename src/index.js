@@ -63,14 +63,14 @@ Hooks.on("renderActorSheet5eCharacter", (app, html, data) => {
 
         // add styles
         const pill = templateHtml.find('.pill');
-        pill.css('background-color', 'var(--color-warm-2)');
         pill.css('color', 'white');
-        pill.css('border', '1px solid var(--color-dark-6)');
         pill.css('border-radius', '3px');
         pill.css('width', '5rem');
         pill.css('margin', '2px 0');
         pill.css('padding', '2px 5px');
         pill.css('cursor', 'pointer');
+        pill.css('background-color', 'var(--t5e-checkbox-outline-color)');
+        pill.css('border', '1px solid var(--dnd5e-color-tan)');
 
         // insert to DOM
         insertLocation.after(templateHtml);
