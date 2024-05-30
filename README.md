@@ -10,7 +10,7 @@ This is a simple module which integrates with the default 5e character sheet to 
 - Click one of the buttons to generate your jump info to the Chat bar.
 - Only works with dnd5e system version 3+ and Foundry v11+
 - Includes support for Active Effects. To use this, add an effect (either directly to an actor, or to an item like a spell), using an Attribute Key value of "dnd5e.foundryvtt-dnd5e-jump-calculator". (see Fig.1 and Fig.2)
-- Includes support for Tidy5e Sheets (see Fig. 3)
+- Includes support for Tidy5e Sheets v4.0.1 and up (see Fig. 3)
 
 ## Fig. 1
 ![Screenshot 2024-05-27 at 15 56 14](https://github.com/geoidesic/foundryvtt-dnd5e-jump-calculator/assets/4637995/6fd48de1-1af3-40c8-92fd-c268a931848e)
