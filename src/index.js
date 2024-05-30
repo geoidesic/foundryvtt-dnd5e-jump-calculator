@@ -2,13 +2,7 @@ import '../styles/init.scss'; // Import any styles as this includes them in the 
 import {parseHeightString, calculateLongJump, calculateHighJump, calculateReach } from '~/helpers'
 import {longJumpTextTemplate, highJumpTextTemplate, sheetContent } from '~/templates'
 
-
-
-Hooks.on("renderActorSheet5eCharacter", (app, html, data) => {
-
-
-    const lastPillGroup = html.find('.pills-group:last-of-type');
-    lastPillGroup.after(sheetContent);
+const renderButtons = (app, html) => {
 
     const strength = app.document.system.abilities.str.value || 10;
     const strMod = app.document.system.abilities.str.mod || 0;
@@ -53,4 +47,37 @@ Hooks.on("renderActorSheet5eCharacter", (app, html, data) => {
             speaker: ChatMessage.getSpeaker({ actor: app.actor }),
         });
     });
+}
+
+Hooks.once("ready", (app, html, data) => {
+    // CONFIG.debug.hooks = true;
+});
+
+  
+Hooks.on("renderActorSheet5eCharacter", (app, html, data) => {
+    
+    if(game.modules.has("tidy5e-sheet")) {
+        const insertLocation = html.find('.main-panel .small-gap');
+        const templateHtml = $(sheetContent);
+        templateHtml.addClass('tidy5e');
+
+        // add styles
+        const pill = templateHtml.find('.pill');
+        pill.css('background-color', 'var(--color-warm-2)');
+        pill.css('color', 'white');
+        pill.css('border', '1px solid var(--color-dark-6)');
+        pill.css('border-radius', '3px');
+        pill.css('width', '5rem');
+        pill.css('margin', '2px 0');
+        pill.css('padding', '2px 5px');
+        pill.css('cursor', 'pointer');
+
+        // insert to DOM
+        insertLocation.after(templateHtml);
+        renderButtons(app, html);
+    } else {
+        const insertLocation = html.find('.pills-group:last-of-type');
+        insertLocation.after(sheetContent);
+        renderButtons(app, html);
+    }
 });

@@ -1,4 +1,3 @@
-
 /**
  * 
  * @param {string} heightString in the format `<ft>' <in>"`
@@ -106,7 +105,6 @@ export function calculateHighJump(strMod, type, actor) {
     // 3 + your Strength modifier
     const distance = _processEffects(getHighJumpDistance(strMod, type), actor);
     return convertDecimalToHeightString(distance);
-
 }
 
 /**
@@ -128,7 +126,6 @@ export function calculateReach(height) {
     }
     // const distance = String(reachFeet) + '.' + String(reachInches);
     const decimalHeight = convertFeetAndInchesToDecimal(reachFeet, reachInches);
-    console.log(decimalHeight);
     return convertDecimalToHeightString(decimalHeight);
 }
 
@@ -139,5 +136,4 @@ export function convertFeetAndInchesToDecimal(feet, inches) {
     const decimalFeet = totalInches / 12;
     const val = decimalFeet.toFixed(1); // Return as a string with one decimal place
     return val;
-
 }
