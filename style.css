@@ -24,3 +24,6 @@ button.geoidesic-5e-button {
   color: white;
   border-radius: 5px;
 }
+.geoidesic-5e-jump-calc .pills-group {
+  display: none;
+}
