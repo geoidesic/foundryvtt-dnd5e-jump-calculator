@@ -2,7 +2,7 @@
   "description": "Provides a jump distance calculator for 5e.",
   "license": "MIT",
   "private": false,
-  "version": "1.2.3",
+  "version": "1.2.4",
   "type": "module",
   "authors": [
     {
@@ -36,6 +36,7 @@
     "build": "vite build",
     "dev": "vite",
     "eslint": "eslint .",
-    "test:unit": "vitest"
+    "test:unit": "vitest",
+    "release": "node release.js"
   }
 }

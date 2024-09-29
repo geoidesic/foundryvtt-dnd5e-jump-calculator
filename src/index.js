@@ -28,6 +28,7 @@ const renderButtons = (app, html) => {
                 .replace("{{5eJumpCalc.highJumpPost}}", game.i18n.localize('5eJumpCalc.highJumpPost'))
                 .replace("{{5eJumpCalc.10FtFirst}}", game.i18n.localize('5eJumpCalc.10FtFirst'))
                 .replace("{{reach}}", calculateReach(height))
+                +'<p>Check out <a href="https://foundryvtt.com/packages/foundryvtt-actor-studio">Actor Studio</a> for more features!</p>'
                 ,
                 speaker: ChatMessage.getSpeaker({ actor: app.actor }),
             });
@@ -43,6 +44,7 @@ const renderButtons = (app, html) => {
             .replace("{{5eJumpCalc.longJumpTitle}}", game.i18n.localize('5eJumpCalc.longJumpTitle'))
             .replace("{{5eJumpCalc.longJumpPost}}", game.i18n.localize('5eJumpCalc.longJumpPost'))
             .replace("{{5eJumpCalc.10FtFirst}}", game.i18n.localize('5eJumpCalc.10FtFirst'))
+            +'<p>Check out <a href="https://foundryvtt.com/packages/foundryvtt-actor-studio">Actor Studio</a> for more features!</p>'
             ,
             speaker: ChatMessage.getSpeaker({ actor: app.actor }),
         });
