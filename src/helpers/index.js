@@ -45,10 +45,11 @@ export function getLongJumpDistance(strength, type) {
  * @param {object} actor 
  * @returns {Number}
  */
-function _processEffects(distance, actor) {
-    let modifiedDistance = distance;
+// Accepts a key to filter effects for specific jump type
+function _processEffects(distance, actor, effectKey = "dnd5e.foundryvtt-dnd5e-jump-calculator") {
+    let modifiedDistance = Number(distance);
     const effects = actor?.effects;
-    if (!effects) return distance;
+    if (!effects) return modifiedDistance;
 
     const effectIterable = typeof effects[Symbol.iterator] === 'function'
         ? effects
@@ -57,9 +58,9 @@ function _processEffects(distance, actor) {
             : [];
     let changes = [];
     for (let effectRow of effectIterable) {
-        if (!effectRow.changes?.length || effectRow.isSuppressed || effectRow.disabled) continue
+        if (!effectRow.changes?.length || effectRow.isSuppressed || effectRow.disabled) continue;
         for (let change of effectRow.changes) {
-            if (change.key === "dnd5e.foundryvtt-dnd5e-jump-calculator") {
+            if (change.key === effectKey) {
                 changes.push(change);
             }
         }
@@ -84,7 +85,6 @@ function _processEffects(distance, actor) {
                 modifiedDistance = change.value;
                 break;
             default:
-                modifiedDistance = modifiedDistance
                 break;
         }
     }
@@ -92,9 +92,11 @@ function _processEffects(distance, actor) {
 }
 
 export function calculateLongJump(strength, type, actor) {
-    const distance = _processEffects(getLongJumpDistance(strength, type), actor);
-    const heightString = convertDecimalToHeightString(distance);
-    return heightString;
+    // Apply both general and long-jump-only effects
+    let distance = getLongJumpDistance(strength, type);
+    distance = _processEffects(distance, actor, "dnd5e.foundryvtt-dnd5e-jump-calculator");
+    distance = _processEffects(distance, actor, "dnd5e.foundryvtt-dnd5e-jump-calculator-long");
+    return convertDecimalToHeightString(distance);
 }
 
 export function getHighJumpDistance(strMod, type) {
@@ -102,9 +104,21 @@ export function getHighJumpDistance(strMod, type) {
     return distance;
 }
 
-export function calculateHighJump(strMod, type, actor) {
-    // 3 + your Strength modifier
-    const distance = _processEffects(getHighJumpDistance(strMod, type), actor);
+/**
+ * Calculates high jump distance, applying effects and optional boost.
+ * @param {number} strMod
+ * @param {string} type
+ * @param {object} actor
+ * @param {number} [movement=0] - Actor's movement speed (for boost)
+ * @param {boolean} [applyBoost=false] - Whether to apply the extra boost
+ */
+export function calculateHighJump(strMod, type, actor, movement = 0, applyBoost = false) {
+    let distance = getHighJumpDistance(strMod, type);
+    distance = _processEffects(distance, actor, "dnd5e.foundryvtt-dnd5e-jump-calculator");
+    distance = _processEffects(distance, actor, "dnd5e.foundryvtt-dnd5e-jump-calculator-high");
+    if (applyBoost && movement > 0) {
+        distance = Number(distance) + (movement / 2);
+    }
     return convertDecimalToHeightString(distance);
 }
 
