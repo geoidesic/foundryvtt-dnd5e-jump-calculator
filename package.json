@@ -37,6 +37,8 @@
     "dev": "vite",
     "eslint": "eslint .",
     "test:unit": "vitest",
-    "release": "node release.js"
+    "release": "node release.js",
+    "pack": "node scripts/db-pack.js",
+    "unpack": "node scripts/db-unpack.js"
   }
 }

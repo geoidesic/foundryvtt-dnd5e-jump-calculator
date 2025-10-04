@@ -47,15 +47,18 @@ export function getLongJumpDistance(strength, type) {
  */
 function _processEffects(distance, actor) {
     let modifiedDistance = distance;
-    if (!actor.effects.size) return distance;
+    const effects = actor?.effects;
+    if (!effects) return distance;
+
+    const effectIterable = typeof effects[Symbol.iterator] === 'function'
+        ? effects
+        : typeof effects.values === 'function'
+            ? effects.values()
+            : [];
     let changes = [];
-    for (let effectRow of actor.effects) {
-        console.log(effectRow)
-        console.log(effectRow.changes)
-        console.log(effectRow.changes.length)
+    for (let effectRow of effectIterable) {
         if (!effectRow.changes?.length || effectRow.isSuppressed || effectRow.disabled) continue
         for (let change of effectRow.changes) {
-            console.log(change)
             if (change.key === "dnd5e.foundryvtt-dnd5e-jump-calculator") {
                 changes.push(change);
             }
@@ -64,8 +67,6 @@ function _processEffects(distance, actor) {
     changes.sort((a, b) => (a.priority || 0) - (b.priority || 0));
 
     for (let change of changes) {
-        console.log(change)
-        console.log(change.mode)
         switch (change.mode) {
             case 1:
                 modifiedDistance = modifiedDistance * change.value;

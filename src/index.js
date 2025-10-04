@@ -2,6 +2,8 @@ import '../styles/init.scss'; // Import any styles as this includes them in the 
 import {parseHeightString, calculateLongJump, calculateHighJump, calculateReach } from '~/helpers'
 import {longJumpTextTemplate, highJumpTextTemplate, sheetContent } from '~/templates'
 
+const JUMP_MODULE_DOM_ID = 'geoidesic-5e-jump-calculator';
+
 const renderButtons = (app, html) => {
 
     const strength = app.document.system.abilities.str.value || 10;
@@ -56,30 +58,88 @@ Hooks.once("ready", (app, html, data) => {
 });
 
   
-Hooks.on("renderActorSheet5eCharacter", (app, html, data) => {
+const isCoreDnd5eSheet = (app) => {
+    const constructorName = app?.constructor?.name;
+    if (!constructorName) return false;
 
-    if(game.modules.has("tidy5e-sheet") && app.constructor.name === "Tidy5eCharacterSheet") {
-        const insertLocation = html.find('.main-panel .small-gap');
-        const templateHtml = $(sheetContent);
-        templateHtml.addClass('tidy5e');
+    // dnd5e v5+ (Foundry V15+) uses CharacterActorSheet (document sheet V2)
+    if (constructorName === 'CharacterActorSheet') return true;
 
-        // add styles
-        const pill = templateHtml.find('.pill');
-        pill.css('color', 'white');
-        pill.css('border-radius', '3px');
-        pill.css('width', '5rem');
-        pill.css('margin', '2px 0');
-        pill.css('padding', '2px 5px');
-        pill.css('cursor', 'pointer');
-        pill.css('background-color', 'var(--t5e-checkbox-outline-color)');
-        pill.css('border', '1px solid var(--dnd5e-color-tan)');
+    // dnd5e v4 (Foundry V13 / rules 2024) uses ActorSheet5eCharacter2
+    if (constructorName === 'ActorSheet5eCharacter2') return true;
 
-        // insert to DOM
-        insertLocation.after(templateHtml);
-        renderButtons(app, html);
-    } else {
-        const insertLocation = html.find('.pills-group:last-of-type');
-        insertLocation.after(sheetContent);
-        renderButtons(app, html);
+    // legacy sheet pre-v4
+    if (constructorName === 'ActorSheet5eCharacter') return true;
+
+    // Some environments expose the sheet id via app.id like dnd5e.ActorSheet5eCharacter2
+    if (typeof app.id === 'string' && app.id.startsWith('dnd5e.')) return true;
+
+    return false;
+};
+
+const injectIntoCoreSheet = (app, html) => {
+    const root = html.find('.pills-group:last-of-type');
+    if (!root || !root.length) return;
+
+    if (html.find(`#${JUMP_MODULE_DOM_ID}`).length) {
+        html.find(`#${JUMP_MODULE_DOM_ID}`).remove();
     }
+
+    root.after(sheetContent);
+    renderButtons(app, html);
+};
+
+const injectIntoTidySheet = (app, html) => {
+    const insertLocation = html.find('.main-panel .small-gap');
+    if (!insertLocation || !insertLocation.length) return;
+
+    // Remove existing injection before adding new
+    const existing = html.find(`#${JUMP_MODULE_DOM_ID}`);
+    if (existing.length) existing.remove();
+
+    const templateHtml = $(sheetContent);
+    templateHtml.addClass('tidy5e');
+
+    // add styles
+    const pill = templateHtml.find('.pill');
+    pill.css('color', 'white');
+    pill.css('border-radius', '3px');
+    pill.css('width', '5rem');
+    pill.css('margin', '2px 0');
+    pill.css('padding', '2px 5px');
+    pill.css('cursor', 'pointer');
+    pill.css('background-color', 'var(--t5e-checkbox-outline-color)');
+    pill.css('border', '1px solid var(--dnd5e-color-tan)');
+
+    insertLocation.after(templateHtml);
+    renderButtons(app, html);
+};
+
+const handleSheetRender = (app, html) => {
+    if (game.modules.has('tidy5e-sheet') && app.constructor?.name === 'Tidy5eCharacterSheet') {
+        injectIntoTidySheet(app, html);
+        return;
+    }
+
+    if (isCoreDnd5eSheet(app)) {
+        injectIntoCoreSheet(app, html);
+    }
+};
+
+Hooks.on('renderActorSheet5eCharacter', (app, html, data) => {
+    handleSheetRender(app, html, data);
+});
+
+Hooks.on('renderActorSheet5eCharacter2', (app, html, data) => {
+    handleSheetRender(app, html, data);
+});
+
+Hooks.on('renderActorSheet5e', (app, html, data) => {
+    handleSheetRender(app, html, data);
+});
+
+Hooks.on('renderActorSheetV2', (app) => {
+    const element = app.element ?? $(app._element);
+    if (!element) return;
+    handleSheetRender(app, $(element));
 });

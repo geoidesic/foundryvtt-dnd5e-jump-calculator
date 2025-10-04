@@ -21,7 +21,7 @@ export const highJumpTextTemplate = `
 `;
 
 export const sheetContent = `
-    <div class="pills-group">
+    <div class="pills-group geoidesic-5e-jump-calculator" id="geoidesic-5e-jump-calculator">
         <h3 class="icon">
             <i class="fas fa-person-running"></i>
             <span class="roboto-upper">Jump Calculator</span>

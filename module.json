@@ -30,8 +30,8 @@
     ],
     "compatibility": {
         "minimum": "11",
-        "verified": "12",
-        "maximum": "12"
+        "verified": "13",
+        "maximum": "14"
     },
     "relationships": {
         "systems": [
@@ -41,7 +41,7 @@
                 "compatibility": {
                     "minimum": "3.0.0",
                     "verified": "4",
-                    "maximum": "5"
+                    "maximum": "6"
                 }
             }
         ]
